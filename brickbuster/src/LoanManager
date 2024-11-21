@@ -1,0 +1,63 @@
+// Siden vi bruker attributter som startDate/endDate
+// så er det viktig at vi har med en funksjon representerer det
+import java.time.LocalDate;
+
+
+// step 1: definere klassen
+public class Loan {
+// step 2: definere attributtene
+    private String filmId;
+    private String userId;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String status;
+
+    
+// step 3: opprette objektene i klassen
+// dette gjør vi ved å bruke en konstruktør
+    public Loan(String filmId, String userId, LocalDate startDate, LocalDate endDate, String status) {
+        this.filmId = filmId;
+        this.userId = userId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+    }
+
+// step 4: lage gettere, hensikten med dette for at deler av programmet skal få tilgang til *lån* koden
+ //Gettere henter ut og returnerer verdiene av attributtene
+    public String getFilmId() {
+        return filmId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    // Settere angir en verdi av et felt, 
+    // i denne koden sier vi at vi skal angi slutt datoen en verdi
+    // f.eks 21.11.2024
+    
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+    
+    // samme med status, her skal vi angi en verdi 
+    // f.eks kan verdien være "lånt ut"
+    // vi bruker public *void* fordi metoden ikke skal returnere noe
+    // sammenlignet med getsatatus hvor linjen skal returnere status
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}
