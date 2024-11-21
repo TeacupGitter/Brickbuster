@@ -1,63 +1,42 @@
-// Siden vi bruker attributter som startDate/endDate
-// så er det viktig at vi har med en funksjon representerer det
 import java.time.LocalDate;
+import java.util.HashMap;
 
+public class LoanManager {
+    private HashMap<String, Loan> loans = new HashMap<>();
 
-// step 1: definere klassen
-public class Loan {
-// step 2: definere attributtene
-    private String filmId;
-    private String userId;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private String status;
-
-    
-// step 3: opprette objektene i klassen
-// dette gjør vi ved å bruke en konstruktør
-    public Loan(String filmId, String userId, LocalDate startDate, LocalDate endDate, String status) {
-        this.filmId = filmId;
-        this.userId = userId;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.status = status;
+    // Registrer et nytt lån
+    public boolean registerLoan(String filmId, String userId, LocalDate startDate, LocalDate endDate) {
+        if (loans.containsKey(filmId)) {
+            System.out.println("Film er allerede lånt ut.");
+            return false;
+        }
+        loans.put(filmId, new Loan(filmId, userId, startDate, endDate, "Active"));
+        return true;
     }
 
-// step 4: lage gettere, hensikten med dette for at deler av programmet skal få tilgang til *lån* koden
- //Gettere henter ut og returnerer verdiene av attributtene
-    public String getFilmId() {
-        return filmId;
+    // Forleng et lån
+    public boolean extendLoan(String filmId, int extraDays) {
+        Loan loan = loans.get(filmId);
+        if (loan == null) {
+            System.out.println("Lån ikke funnet.");
+            return false;
+        }
+        loan.setEndDate(loan.getEndDate().plusDays(extraDays));
+        return true;
     }
 
-    public String getUserId() {
-        return userId;
+    // Fjern et lån
+    public boolean removeLoan(String filmId) {
+        if (!loans.containsKey(filmId)) {
+            System.out.println("Lån ikke funnet.");
+            return false;
+        }
+        loans.remove(filmId);
+        return true;
     }
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    // Settere angir en verdi av et felt, 
-    // i denne koden sier vi at vi skal angi slutt datoen en verdi
-    // f.eks 21.11.2024
-    
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-    
-    // samme med status, her skal vi angi en verdi 
-    // f.eks kan verdien være "lånt ut"
-    // vi bruker public *void* fordi metoden ikke skal returnere noe
-    // sammenlignet med getsatatus hvor linjen skal returnere status
-    public void setStatus(String status) {
-        this.status = status;
+    // Hent en liste av alle lån (f.eks. for debugging)
+    public HashMap<String, Loan> getAllLoans() {
+        return loans;
     }
 }
