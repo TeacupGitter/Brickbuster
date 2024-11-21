@@ -6,6 +6,7 @@ public class Loan {
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
+    private int price;
 
     public Loan(String filmId, String userId, LocalDate startDate, LocalDate endDate, String status) {
         this.filmId = filmId;
@@ -13,6 +14,7 @@ public class Loan {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
+        this.price = price;
     }
 
     // Gettere
