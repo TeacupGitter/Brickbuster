@@ -1,0 +1,47 @@
+import java.time.LocalDate;
+
+public class Loan {
+    private String filmId;
+    private String userId;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String status;
+
+    public Loan(String filmId, String userId, LocalDate startDate, LocalDate endDate, String status) {
+        this.filmId = filmId;
+        this.userId = userId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+    }
+
+    // Gettere
+    public String getFilmId() {
+        return filmId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    // Settere for endring
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}
