@@ -1,6 +1,10 @@
+// Siden vi bruker attributter som startDate/endDate
+// så er det viktig at vi har med en funksjon representerer det
 import java.time.LocalDate;
 
+// step 1: definere klassen
 public class Loan {
+    // step 2: definere attributtene
     private String filmId;
     private String userId;
     private LocalDate startDate;
@@ -8,7 +12,17 @@ public class Loan {
     private String status;
     private int price;
 
-    public Loan(String filmId, String userId, LocalDate startDate, LocalDate endDate, String status) {
+    // step 3: opprette objektene i klassen
+    // dette gjør vi ved å bruke en konstruktør
+    // i tillegg har vi en if setning som sjekker at startsdatoen ikke kan være etter sluttdato
+    public Loan(String filmId, String userId, LocalDate startDate, LocalDate endDate, String status, int price) {
+        if (startDate.isAfter(endDate)) {
+            throw new IllegalArgumentException("Startdato kan ikke være etter sluttdato.");
+        }
+        if (price < 0) {
+            throw new IllegalArgumentException("Prisen kan ikke være negativ.");
+        }
+
         this.filmId = filmId;
         this.userId = userId;
         this.startDate = startDate;
@@ -17,7 +31,8 @@ public class Loan {
         this.price = price;
     }
 
-    // Gettere
+    // step 4: lage gettere, hensikten med dette for at deler av programmet skal få tilgang til *lån* koden
+    // Gettere henter ut og returnerer verdiene av attributtene
     public String getFilmId() {
         return filmId;
     }
@@ -38,11 +53,37 @@ public class Loan {
         return status;
     }
 
-    // Settere for endring
+    public int getPrice() {
+        return price;
+    }
+
+    // Settere angir en verdi av et felt,
+    // i denne koden sier vi at vi skal angi prisen en verdi
+    //    // i tillegg har vi en if setning som sjekket at prisen ikke kan være mindre enn null
+
+    public void setPrice(int price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Prisen kan ikke være mindre enn 0");
+        }
+        this.price = price;
+    }
+
+    // Settere angir en verdi av et felt, 
+    // i denne koden sier vi at vi skal angi slutt datoen en verdi
+    // f.eks 21.11.2024
+    //    // i tillegg har vi en if setning som sjekker at sluttdatoen ikke kan være etter startsdato
+
     public void setEndDate(LocalDate endDate) {
+        if (endDate.isBefore(startDate)) {
+            throw new IllegalArgumentException("Sluttdato kan ikke være før startdato");
+        }
         this.endDate = endDate;
     }
 
+    // samme med status, her skal vi angi en verdi 
+    // f.eks kan verdien være "lånt ut"
+    // vi bruker public *void* fordi metoden ikke skal returnere noe
+    // sammenlignet med getStatus hvor linjen skal returnere status
     public void setStatus(String status) {
         this.status = status;
     }
